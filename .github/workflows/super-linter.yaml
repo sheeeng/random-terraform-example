@@ -1,0 +1,17 @@
+---
+# https://github.com/github/super-linter
+name: super-linter
+
+on:
+  pull_request:
+  push:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: github/super-linter@v3
+        env:
+          VALIDATE_TERRAGRUNT: false

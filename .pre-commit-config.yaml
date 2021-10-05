@@ -1,0 +1,293 @@
+---
+# Use with pre-commit.
+# See usage instructions at https://pre-commit.com website.
+exclude: "^vendor/"
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: "v4.0.1"
+    hooks:
+      - id: check-added-large-files
+        name: "pre-commit/pre-commit-hooks/check-added-large-files"
+        description: |-
+          This hook prevents giant files from being committed.
+          https://github.com/pre-commit/pre-commit-hooks
+        entry: check-added-large-files
+        args: ["--enforce-all", "--maxkb=4096"]
+        exclude: ^terraform.d/
+        language: python
+      - id: check-ast
+        name: "pre-commit/pre-commit-hooks/check-ast"
+        description: |-
+          This hook simply check whether files parse as valid python.
+          https://github.com/pre-commit/pre-commit-hooks
+        entry: check-ast
+        language: python
+        types: [python]
+      - id: check-builtin-literals
+        name: "pre-commit/pre-commit-hooks/check-builtin-literals"
+        description: |-
+          This hook requires literal syntax when initializing empty or zero Python builtin types.
+          https://github.com/pre-commit/pre-commit-hooks
+        entry: check-builtin-literals
+        language: python
+        types: [python]
+      - id: check-case-conflict
+        name: "pre-commit/pre-commit-hooks/check-case-conflict"
+        description: |-
+          This hook checks for files with names that would conflict on a case-insensitive filesystem like MacOS HFS+ or Windows FAT.
+          https://github.com/pre-commit/pre-commit-hooks
+        entry: check-case-conflict
+        language: python
+      - id: check-docstring-first
+        name: "pre-commit/pre-commit-hooks/check-docstring-first"
+        description: |-
+          This hook checks for a common error of placing code before the docstring.
+          https://github.com/pre-commit/pre-commit-hooks
+        entry: check-docstring-first
+        language: python
+        types: [python]
+      - id: check-executables-have-shebangs
+        name: "pre-commit/pre-commit-hooks/check-executables-have-shebangs"
+        description: |-
+          This hook checks that non-binary executables have a proper shebang.
+          https://github.com/pre-commit/pre-commit-hooks
+        entry: check-executables-have-shebangs
+        language: python
+        types: [text, executable]
+        stages: [commit, push, manual]
+      - id: check-json
+        name: "pre-commit/pre-commit-hooks/check-json"
+        description: |-
+          This hook attempts to load all JSON files to verify syntax.
+          https://github.com/pre-commit/pre-commit-hooks
+        entry: check-json
+        language: python
+        types: [json]
+      - id: check-merge-conflict
+        name: "pre-commit/pre-commit-hooks/check-merge-conflict"
+        description: |-
+          This hook checks for files that contain merge conflict strings.
+          https://github.com/pre-commit/pre-commit-hooks
+        entry: check-merge-conflict
+        language: python
+        types: [text]
+      - id: check-symlinks
+        name: "pre-commit/pre-commit-hooks/check-symlinks"
+        description: |-
+          This hook checks for symlinks which do not point to anything.
+          https://github.com/pre-commit/pre-commit-hooks
+        entry: check-symlinks
+        language: python
+        types: [symlink]
+      - id: check-toml
+        name: "pre-commit/pre-commit-hooks/check-toml"
+        description: |-
+          This hook attempts to load all TOML files to verify syntax.
+          https://github.com/pre-commit/pre-commit-hooks
+        entry: check-toml
+        language: python
+        types: [toml]
+      - id: check-vcs-permalinks
+        name: "pre-commit/pre-commit-hooks/check-vcs-permalinks"
+        description: |-
+          This hook ensures that links to vcs websites are permalinks.
+          https://github.com/pre-commit/pre-commit-hooks
+        entry: check-vcs-permalinks
+        language: python
+        types: [text]
+      - id: check-xml
+        name: "pre-commit/pre-commit-hooks/check-xml"
+        description: |-
+          This hook attempts to load all XML files to verify syntax.
+          https://github.com/pre-commit/pre-commit-hooks
+        entry: check-xml
+        language: python
+        types: [xml]
+      - id: check-yaml
+        name: "pre-commit/pre-commit-hooks/check-yaml"
+        description: |-
+          This hook attempts to load all YAML files to verify syntax.
+          https://github.com/pre-commit/pre-commit-hooks
+        entry: check-yaml
+        args: ["--allow-multiple-documents"]
+        language: python
+        types: [yaml]
+      - id: debug-statements
+        name: "pre-commit/pre-commit-hooks/debug-statements"
+        description: |-
+          This hook checks for debugger imports and Python 3.7+ `breakpoint()` calls in Python source.
+          https://github.com/pre-commit/pre-commit-hooks
+        entry: debug-statements
+        language: python
+        types: [python]
+      - id: detect-aws-credentials
+        name: "pre-commit/pre-commit-hooks/detect-aws-credentials"
+        description: |-
+          This hook checks for the existence of AWS secrets that you have set up with the AWS CLI.
+          https://github.com/pre-commit/pre-commit-hooks
+        entry: detect-aws-credentials
+        args: ["--allow-missing-credentials"]
+        language: python
+        types: [text]
+      - id: detect-private-key
+        name: "pre-commit/pre-commit-hooks/detect-private-key"
+        description: |-
+          This hook checks for the existence of private keys.
+          https://github.com/pre-commit/pre-commit-hooks
+        entry: detect-private-key
+        language: python
+        types: [text]
+      - id: double-quote-string-fixer
+        name: "pre-commit/pre-commit-hooks/double-quote-string-fixer"
+        description: |-
+          This hook replaces double quoted strings with single quoted strings.
+          https://github.com/pre-commit/pre-commit-hooks
+        entry: double-quote-string-fixer
+        language: python
+        types: [python]
+      - id: end-of-file-fixer
+        name: "pre-commit/pre-commit-hooks/end-of-file-fixer"
+        description: |-
+          This hook fixes end of file.
+          https://github.com/pre-commit/pre-commit-hooks
+        entry: end-of-file-fixer
+        language: python
+        types: [text]
+        stages: [commit, push, manual]
+      - id: fix-byte-order-marker
+        name: "pre-commit/pre-commit-hooks/fix-byte-order-marker"
+        description: |-
+          This hook removes UTF-8 byte order marker.
+          https://github.com/pre-commit/pre-commit-hooks
+        entry: fix-byte-order-marker
+        language: python
+        types: [text]
+      - id: fix-encoding-pragma
+        name: "pre-commit/pre-commit-hooks/fix-encoding-pragma"
+        description: |-
+          This hook adds `# -*- coding: utf-8 -*-` to the top of python files.
+          https://github.com/pre-commit/pre-commit-hooks
+        entry: fix-encoding-pragma
+        language: python
+        types: [python]
+      # - id: file-contents-sorter
+      #   name: "pre-commit/pre-commit-hooks/file-contents-sorter"
+      #   description: |-
+      #     This hook sorts the lines in specified files (defaults to alphabetical).
+      #     You must provide list of target files as input in your `.pre-commit-config.yaml` file.
+      #     https://github.com/pre-commit/pre-commit-hooks
+      #   entry: file-contents-sorter
+      #   language: python
+      #   files: '^$'
+      - id: forbid-new-submodules
+        name: "pre-commit/pre-commit-hooks/forbid-new-submodules"
+        description: |-
+          This hook prevents addition of new git submodules.
+          https://github.com/pre-commit/pre-commit-hooks
+        entry: forbid-new-submodules
+      - id: mixed-line-ending
+        name: "pre-commit/pre-commit-hooks/mixed-line-ending"
+        description: |-
+          This hook replaces or checks mixed line ending.
+          https://github.com/pre-commit/pre-commit-hooks
+        entry: mixed-line-ending
+        args: ["--fix=auto"]
+        language: python
+        types: [text]
+      - id: name-tests-test
+        name: "pre-commit/pre-commit-hooks/name-tests-test"
+        description: |-
+          This hook assert that files in `tests/` end in `_test.py`.
+          https://github.com/pre-commit/pre-commit-hooks
+        entry: name-tests-test
+        language: python
+        files: (^|/)tests/.+\.py$
+      - id: no-commit-to-branch
+        name: "pre-commit/pre-commit-hooks/no-commit-to-branch"
+        description: |-
+          This hook protects specific branches from direct checkins.
+          https://github.com/pre-commit/pre-commit-hooks
+        entry: no-commit-to-branch
+        args: ["--branch", "staging", "--branch", "trunk"]
+        language: python
+        pass_filenames: false
+        always_run: true
+      - id: pretty-format-json
+        name: "pre-commit/pre-commit-hooks/pretty-format-json"
+        description: |-
+          This hook checks that all your JSON files are pretty.
+          https://github.com/pre-commit/pre-commit-hooks
+        entry: pretty-format-json
+        args:
+          ["--autofix", "--indent", "2", "--no-ensure-ascii", "--no-sort-keys"]
+        language: python
+        types: [json]
+      - id: requirements-txt-fixer
+        name: "pre-commit/pre-commit-hooks/requirements-txt-fixer"
+        description: |-
+          This hook sorts entries in requirements.txt and removes incorrect entry for `pkg-resources==0.0.0`.
+          https://github.com/pre-commit/pre-commit-hooks
+        entry: requirements-txt-fixer
+        language: python
+        files: requirements.*\.txt$
+      - id: sort-simple-yaml
+        name: "pre-commit/pre-commit-hooks/sort-simple-yaml"
+        description: |-
+          This hook sorts simple YAML files which consist only of top-level keys, preserving comments and blocks.
+          https://github.com/pre-commit/pre-commit-hooks
+        entry: sort-simple-yaml
+        files: "^$"
+      - id: trailing-whitespace
+        name: "pre-commit/pre-commit-hooks/trailing-whitespace"
+        description: |-
+          This hook trims trailing whitespace.
+          https://github.com/pre-commit/pre-commit-hooks
+        entry: trailing-whitespace-fixer
+        args: ["--markdown-linebreak-ext=md"]
+        language: python
+        types: [text]
+        stages: [commit, push, manual]
+  - repo: https://github.com/prettier/prettier
+    rev: "2.4.1"
+    hooks:
+      - id: prettier
+        name: "prettier/prettier"
+        description: |-
+          Prettier is an opinionated code formatter.
+          https://prettier.io/
+          https://github.com/pre-commit/mirrors-prettier/blob/8e0d199f4004a7f226ed7974fc3883d9c702bded/.pre-commit-hooks.yaml
+        # https://github.com/prettier/prettier/issues/1504
+        # https://github.com/jokeyrhyme/node-init.js/issues/154
+        entry: prettier --write --list-different --ignore-unknown
+        language: node
+        types: [text]
+        args: []
+        require_serial: false
+        additional_dependencies: ["prettier@2.4.1"]
+  - repo: https://github.com/adrienverge/yamllint
+    rev: "v1.26.3"
+    hooks:
+      - id: yamllint
+        name: "adrienverge/yamllint"
+        description: |-
+          Yamllint is a static analysis tool for YAML files.
+          https://yamllint.readthedocs.io/en/stable/
+        entry: yamllint
+        args: ["--config-file=.github/linters/.yaml-lint.yml"]
+        language: python
+        types: [file, yaml]
+  - repo: https://github.com/gruntwork-io/pre-commit
+    rev: "v0.1.16"
+    hooks:
+      - id: shellcheck
+        name: "gruntwork-io/pre-commit/shellcheck"
+      - id: gofmt
+        name: "gruntwork-io/pre-commit/gofmt"
+      - id: golint
+        name: "gruntwork-io/pre-commit/golint"
+      - id: terraform-fmt
+        name: "gruntwork-io/pre-commit/terraform-fmt"
+      - id: terraform-validate
+        name: "gruntwork-io/pre-commit/terraform-validate"
+      - id: tflint
+        name: "gruntwork-io/pre-commit/tflint"
