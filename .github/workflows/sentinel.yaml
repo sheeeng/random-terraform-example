@@ -33,6 +33,7 @@ jobs:
         env:
           SENTINEL_VERSION: 0.16.1
         run: |-
+          #shellcheck disable=SC2086
           curl \
             --show-error \
             --silent \
@@ -43,9 +44,16 @@ jobs:
           && unzip -d /usr/local/bin \
             sentinel_${SENTINEL_VERSION}_linux_amd64.zip
       - name: "Sentinel Format"
-        run: sentinel fmt -check=true $(find . -name "*.sentinel" -type f)
+        run: |-
+          #shellcheck disable=SC2046
+          sentinel fmt \
+            -check=true \
+            $(find . -name "*.sentinel" -type f)
       - name: "Sentinel Test"
-        run: sentinel test $(find . -name "*.sentinel" ! -path "*/testdata/*" ! -path "*/examples/*")
+        run: |-
+          #shellcheck disable=SC2046
+          sentinel test \
+            $(find . -name "*.sentinel" ! -path "*/testdata/*" ! -path "*/examples/*")
   # sentinel-test:
   #   needs: sentinel-format
   #   runs-on: ubuntu-latest
