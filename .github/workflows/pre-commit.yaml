@@ -19,5 +19,9 @@ jobs:
         uses: hashicorp/setup-terraform@v2
         with:
           terraform_version: 1.2.8
+      - name: Setup TFLint
+        uses: terraform-linters/setup-tflint@v2
+        with:
+          tflint_version: v0.40.0
       - name: Pre Commit
         uses: pre-commit/action@v3.0.0
