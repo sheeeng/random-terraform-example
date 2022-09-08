@@ -1,0 +1,82 @@
+# https://github.com/jasonetco/jasonetco/blob/master/.github/workflows/daily-updates.yml
+
+name: Terraform
+on:
+  push:
+    branches:
+      - "main"
+      - "docs/**"
+      - "feature/**"
+      - "fix/**"
+      - "wip/**"
+  pull_request:
+    branches:
+      - "docs/**"
+      - "feature/**"
+      - "fix/**"
+      - "wip/**"
+
+jobs:
+  updates:
+    name: Terraform
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: |
+          echo "\${PATH}: ${PATH}"
+        shell: bash
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.2.8
+      - run: terraform fmt -check
+        id: fmt
+        continue-on-error: false
+      - run: terraform fmt -recursive .
+        continue-on-error: false
+      - id: init
+        run: terraform init
+      - id: validate
+        run: terraform validate -no-color
+      - id: plan
+        run: terraform plan
+        continue-on-error: false
+      - uses: actions/upload-artifact@v3
+        if: ${{ success() }}
+        with:
+          name: terraform-state-file
+          path: |
+            terraform.tfstate
+            !.github/**/*.yml
+          retention-days: 7
+      - uses: actions/github-script@v6
+        if: |
+          github.event_name == 'push' ||
+          (github.event_name == 'pull_request' && github.head_ref == 'main')
+        env:
+          PLAN: "terraform\n${{ steps.plan.outputs.stdout }}"
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const output = `#### Terraform Format and Style 🖌\`${{ steps.fmt.outcome }}\`
+            #### Terraform Initialization ⚙️\`${{ steps.init.outcome }}\`
+            #### Terraform Validation 🤖\`${{ steps.validate.outcome }}\`
+            <details><summary>Validation Output</summary>
+
+            \`\`\`\n
+            ${{ steps.validate.outputs.stdout }}
+            \`\`\`
+
+            </details>
+
+            #### Terraform Plan 📖\`${{ steps.plan.outcome }}\`
+
+            <details><summary>Show Plan</summary>
+
+            \`\`\`\n
+            ${process.env.PLAN}
+            \`\`\`
+
+            </details>
+
+            *Pusher: @${{ github.actor }}, Action: \`${{ github.event_name }}\`, Working Directory: \`${{ env.tf_actions_working_dir }}\`, Workflow: \`${{ github.workflow }}\`*`;
