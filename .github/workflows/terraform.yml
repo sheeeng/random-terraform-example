@@ -41,13 +41,15 @@ jobs:
       - id: plan
         run: terraform plan
         continue-on-error: false
+      - id: apply
+        run: terraform apply -auto-approve
+        continue-on-error: false
       - uses: actions/upload-artifact@v3
         if: ${{ success() }}
         with:
           name: terraform-state-file
           path: |
-            terraform.tfstate
-            !.github/**/*.yml
+            ./**/*.tfstate
           retention-days: 7
       - uses: actions/github-script@v6
         if: |
@@ -55,6 +57,7 @@ jobs:
           (github.event_name == 'pull_request' && github.head_ref == 'main')
         env:
           PLAN: "terraform\n${{ steps.plan.outputs.stdout }}"
+          APPLY: "terraform\n${{ steps.apply.outputs.stdout }}"
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
@@ -75,6 +78,16 @@ jobs:
 
             \`\`\`\n
             ${process.env.PLAN}
+            \`\`\`
+
+            </details>
+
+            #### Terraform Apply 🚨\`${{ steps.apply.outcome }}\`
+
+            <details><summary>Show Apply</summary>
+
+            \`\`\`\n
+            ${process.env.Apply}
             \`\`\`
 
             </details>
