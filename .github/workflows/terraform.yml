@@ -1,6 +1,6 @@
 # https://github.com/jasonetco/jasonetco/blob/master/.github/workflows/daily-updates.yml
 
-name: Terraform
+name: terraform
 on:
   push:
     branches:
@@ -18,7 +18,7 @@ on:
 
 jobs:
   updates:
-    name: Terraform
+    name: terraform
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
