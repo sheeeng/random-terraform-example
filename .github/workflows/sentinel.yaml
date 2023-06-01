@@ -9,6 +9,12 @@ on:
 jobs:
   sentinel-format-and-test:
     runs-on: ubuntu-latest
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.ref }}
+      cancel-in-progress: false
+    defaults:
+      run:
+        shell: bash
     container:
       # image: thrashr888/sentinel-simulator
       image: docker.io/library/debian:10-slim

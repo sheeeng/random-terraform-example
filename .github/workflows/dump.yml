@@ -1,0 +1,46 @@
+---
+name: Dump
+
+on:
+  workflow_dispatch: # Enable manual trigger to run workflow.
+
+jobs:
+  dump:
+    name: "Dump"
+    runs-on: ubuntu-latest
+    environment: test
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.ref }}
+      cancel-in-progress: false
+    defaults:
+      run:
+        shell: bash
+    steps:
+      # ------------------------------------------------------------------------
+      - name: "Set Environment Variables"
+        run: |
+          echo "WORKING_DIRECTORY=${PWD}" >> ${GITHUB_ENV}
+          echo "TIMESTAMP=$(date +'%Y%m%d%H%M%S')" >> ${GITHUB_ENV}
+      # ------------------------------------------------------------------------
+      - name: "Display GitHub Context"
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: |
+          echo "${GITHUB_CONTEXT}" > "${{ env.TIMESTAMP }}.log"
+      # ------------------------------------------------------------------------
+      # - name: "Echo Secrets"
+      #   env:
+      #     SECRETS_VARIABLES: ${{ toJson(secrets) }}
+      #   run: |
+      #     echo "${SECRETS_VARIABLES}" > "${{ env.TIMESTAMP }}.txt"
+      # ------------------------------------------------------------------------
+      - uses: actions/upload-artifact@v3
+        name: "Upload Artifact"
+        with:
+          if-no-files-found: error
+          name: ${{ env.TIMESTAMP }}
+          path: |
+            ${{ env.TIMESTAMP }}.log
+            ${{ env.TIMESTAMP }}.txt
+          retention-days: 1
+      # ------------------------------------------------------------------------
