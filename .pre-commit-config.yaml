@@ -4,7 +4,7 @@
 exclude: "^vendor/"
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: "v4.0.1"
+    rev: "v4.4.0"
     hooks:
       - id: check-added-large-files
         name: "pre-commit/pre-commit-hooks/check-added-large-files"
@@ -265,7 +265,7 @@ repos:
         require_serial: false
         additional_dependencies: ["prettier@2.4.1"]
   - repo: https://github.com/adrienverge/yamllint
-    rev: "v1.26.3"
+    rev: "v1.32.0"
     hooks:
       - id: yamllint
         name: "adrienverge/yamllint"
@@ -277,7 +277,7 @@ repos:
         language: python
         types: [file, yaml]
   - repo: https://github.com/gruntwork-io/pre-commit
-    rev: "v0.1.16"
+    rev: "v0.1.22"
     hooks:
       - id: shellcheck
         name: "gruntwork-io/pre-commit/shellcheck"
