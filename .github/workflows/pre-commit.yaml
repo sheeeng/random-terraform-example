@@ -18,10 +18,10 @@ jobs:
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v2
         with:
-          terraform_version: 1.2.8
+          terraform_version: 1.4.6
       - name: Setup TFLint
-        uses: terraform-linters/setup-tflint@v2
+        uses: terraform-linters/setup-tflint@v3
         with:
-          tflint_version: v0.40.0
+          tflint_version: v0.46.1
       - name: Pre Commit
         uses: pre-commit/action@v3.0.0
