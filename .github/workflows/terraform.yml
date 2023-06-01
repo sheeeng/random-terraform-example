@@ -39,20 +39,33 @@ jobs:
           terraform_version: 1.4.6
       - run: |
           terraform fmt \
-            -check
+            -check \
+            -diff \
+            -recursive \
+            -list=true \
+            -write=false
         id: fmt
         continue-on-error: false
       - run: |
           terraform fmt \
-            -recursive .
+            -check \
+            -diff \
+            -list=true \
+            -recursive \
+            -write=false
         continue-on-error: false
       - id: init
         run: |
           terraform init \
-            -input=false
+            -input=false \
+            -lock-timeout=0s \
+            -lock=true \
+            -lockfile=readonly \
+            -no-color
       - id: validate
         run: |
           terraform validate \
+            -json \
             -no-color
       - id: plan
         run: |
