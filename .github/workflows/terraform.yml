@@ -63,9 +63,9 @@ jobs:
       - id: apply
         run: |
           terraform apply \
+            -auto-approve \
             -input=false \
-            tfplan \
-            -auto-approve
+            tfplan
         continue-on-error: false
       - uses: actions/upload-artifact@v3
         if: ${{ success() }}
