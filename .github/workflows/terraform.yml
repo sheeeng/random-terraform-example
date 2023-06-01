@@ -53,19 +53,19 @@ jobs:
       - id: validate
         run: |
           terraform validate \
-          -no-color
+            -no-color
       - id: plan
         run: |
           terraform plan \
-          -input=false \
-          -out=tfplan
+            -input=false \
+            -out=tfplan
         continue-on-error: false
       - id: apply
         run: |
           terraform apply \
-          -input=false \
-          tfplan \
-          -auto-approve
+            -input=false \
+            tfplan \
+            -auto-approve
         continue-on-error: false
       - uses: actions/upload-artifact@v3
         if: ${{ success() }}
