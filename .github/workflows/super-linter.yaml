@@ -18,5 +18,5 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: super-linter/super-linter@v5
-        env:
-          VALIDATE_TERRAGRUNT: false
+        # env:
+        #   VALIDATE_TERRAGRUNT: false
