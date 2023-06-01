@@ -26,6 +26,8 @@ jobs:
     defaults:
       run:
         shell: bash
+    env:
+      TF_IN_AUTOMATION: "NON_EMPTY_VALUE" # https://developer.hashicorp.com/terraform/tutorials/automation/automate-terraform
     steps:
       - uses: actions/checkout@v3
       - run: |
@@ -41,14 +43,25 @@ jobs:
       - run: terraform fmt -recursive .
         continue-on-error: false
       - id: init
-        run: terraform init
+        run: |
+          terraform init \
+            -input=false
       - id: validate
-        run: terraform validate -no-color
+        run: |
+          terraform validate \
+          -no-color
       - id: plan
-        run: terraform plan
+        run: |
+          terraform plan \
+          -input=false \
+          -out=tfplan
         continue-on-error: false
       - id: apply
-        run: terraform apply -auto-approve
+        run: |
+          terraform apply \
+          -input=false \
+          tfplan \
+          -auto-approve
         continue-on-error: false
       - uses: actions/upload-artifact@v3
         if: ${{ success() }}
