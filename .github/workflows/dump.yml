@@ -19,8 +19,8 @@ jobs:
       # ------------------------------------------------------------------------
       - name: "Set Environment Variables"
         run: |
-          echo "WORKING_DIRECTORY=${PWD}" >> ${GITHUB_ENV}
-          echo "TIMESTAMP=$(date +'%Y%m%d%H%M%S')" >> ${GITHUB_ENV}
+          echo "WORKING_DIRECTORY=${PWD}" >> "${GITHUB_ENV}"
+          echo "TIMESTAMP=$(date +'%Y%m%d%H%M%S')" >> "${GITHUB_ENV}"
       # ------------------------------------------------------------------------
       - name: "Display GitHub Context"
         env:
@@ -28,11 +28,11 @@ jobs:
         run: |
           echo "${GITHUB_CONTEXT}" > "${{ env.TIMESTAMP }}.log"
       # ------------------------------------------------------------------------
-      # - name: "Echo Secrets"
-      #   env:
-      #     SECRETS_VARIABLES: ${{ toJson(secrets) }}
-      #   run: |
-      #     echo "${SECRETS_VARIABLES}" > "${{ env.TIMESTAMP }}.txt"
+      - name: "Echo Secrets"
+        env:
+          SECRETS_VARIABLES: ${{ toJson(secrets) }}
+        run: |
+          echo "${SECRETS_VARIABLES}" > "${{ env.TIMESTAMP }}.txt"
       # ------------------------------------------------------------------------
       - uses: actions/upload-artifact@v3
         name: "Upload Artifact"
@@ -40,7 +40,7 @@ jobs:
           if-no-files-found: error
           name: ${{ env.TIMESTAMP }}
           path: |
-            ${{ env.TIMESTAMP }}.log
-            ${{ env.TIMESTAMP }}.txt
+            "${{ env.TIMESTAMP }}.log"
+            "${{ env.TIMESTAMP }}.txt"
           retention-days: 1
       # ------------------------------------------------------------------------
