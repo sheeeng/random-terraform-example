@@ -37,7 +37,7 @@ jobs:
             /var/lib/apt/lists/*
       - name: "Install Sentinel"
         env:
-          SENTINEL_VERSION: 0.18.11
+          SENTINEL_VERSION: 0.22.0
         run: |-
           #shellcheck disable=SC2086
           curl \
