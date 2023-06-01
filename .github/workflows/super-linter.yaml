@@ -1,5 +1,5 @@
 ---
-# https://github.com/github/super-linter
+# https://github.com/super-linter/super-linter
 name: super-linter
 
 on:
@@ -17,6 +17,6 @@ jobs:
         shell: bash
     steps:
       - uses: actions/checkout@v3
-      - uses: github/super-linter@v4
+      - uses: super-linter/super-linter@v5
         env:
           VALIDATE_TERRAGRUNT: false
