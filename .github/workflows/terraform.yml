@@ -46,14 +46,6 @@ jobs:
             -write=false
         id: fmt
         continue-on-error: false
-      - run: |
-          terraform fmt \
-            -check \
-            -diff \
-            -list=true \
-            -recursive \
-            -write=false
-        continue-on-error: false
       - id: init
         run: |
           terraform init \
