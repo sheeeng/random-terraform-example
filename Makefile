@@ -82,6 +82,7 @@ apply: plan
 	tools \
 	validate \
 	validate-only \
+	providers-lock \
 	plan \
 	plan-only \
 	apply \
