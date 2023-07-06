@@ -1,4 +1,4 @@
-# random-terraform-examples
+# random-terraform-example
 
 ```bash
 terraform init -upgrade \
